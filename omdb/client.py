@@ -2,16 +2,16 @@ import logging
 
 import requests
 
-logger = logging.getLogger(_name_)
+logger = logging.getLogger(__name__)
 
 OMDB_API_URL = "https://www.omdbapi.com/"
 
 
-Class OmdbMovie:
+class OmdbMovie:
     """A simple class to represent movie data coming back from OMDb
     and transform to Python types."""
 
-    def _init_(self, data):
+    def __init__(self, data):
         """Data is the raw JSON/dict returned from OMDb"""
         self.data = data
 
@@ -28,7 +28,7 @@ Class OmdbMovie:
 
     @property
     def title(self):
-        retunr self.data["Title"]
+        return self.data["Title"]
 
     @property
     def year(self):
@@ -58,11 +58,11 @@ Class OmdbMovie:
 
 
 class OmdbClient:
-    def _init_(self, api_key):
+    def __init__(self, api_key):
         self.api_key = api_key
 
     def make_request(self, params):
-         """Make a GET request to the API, automatically adding the `apikey` to parameters."""
+        """Make a GET request to the API, automatically adding the `apikey` to parameters."""
         params["apikey"] = self.api_key
 
         resp = requests.get(OMDB_API_URL, params=params)
@@ -87,6 +87,11 @@ class OmdbClient:
             logger.info("Fetching page %d", page)
             resp = self.make_request({"s": search, "type": "movie", "page": str(page)})
             resp_body = resp.json()
+            logger.info(" resp >> %s", resp_body)
+
+            if resp_body["Response"] == 'False':
+                break
+
             if total_results is None:
                 total_results = int(resp_body["totalResults"])
 
@@ -94,7 +99,7 @@ class OmdbClient:
                 seen_results += 1
                 yield OmdbMovie(movie)
 
-            if seen_results >= total_results
+            if seen_results >= total_results:
                 break
             
             page += 1

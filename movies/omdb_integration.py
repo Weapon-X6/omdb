@@ -4,12 +4,12 @@ from datetime import timedelta
 
 from django.utils.timezone import now
 
-from movies.models import Genre, SearchTerm, movie
+from movies.models import Genre, SearchTerm, Movie
 from omdb.django_client import get_client_from_settings
 
 logger = logging.getLogger(__name__)
 
-def get_or_create_genres(genre_nams):
+def get_or_create_genres(genre_names):
     for genre_name in genre_names:
         genre, created = Genre.objects.get_or_create(name=genre_name)
         yield genre
@@ -21,7 +21,7 @@ def fill_movie_details(movie):
     """
     if movie.is_full_record:
         logger.warning(
-          "'%' is already a full record",
+          "'%s' is already a full record",
           movie.title,
         )
         return
@@ -33,8 +33,8 @@ def fill_movie_details(movie):
     movie.runtime_minutes = movie_details.runtime_minutes
     movie.genres.clear()
     for genre in get_or_create_genres(movie_details.genres):
-        movie.generes.add(genre)
-    movies.is_full_record = True
+        movie.genres.add(genre)
+    movie.is_full_record = True
     movie.save()
 
 def search_and_save(search):
@@ -56,6 +56,7 @@ def search_and_save(search):
         return
 
     omdb_client = get_client_from_settings()
+    logger.info
 
     for omdb_movie in omdb_client.search(search):
         logger.info("Saving movie: '%s' / '%s'", omdb_movie.title, omdb_movie.imdb_id)

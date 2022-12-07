@@ -28,4 +28,6 @@ class Movie(models.Model):
     plot = models.TextField(null=True, blank=True)
     is_full_record = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.title} - {self.year} | {self.is_full_record}"
     

@@ -18,7 +18,7 @@ def search(request):
         return redirect(
           reverse("search_wait", args=(res.id,))
           + "?search_term="
-          + urllib.parse.quoute_plus(search_term)
+          + urllib.parse.quote_plus(search_term)
         )
     return redirect(
         reverse("search_results")

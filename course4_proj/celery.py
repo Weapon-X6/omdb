@@ -1,4 +1,5 @@
 import os
+import configurations
 
 from celery import Celery
 from django.conf import settings
@@ -6,7 +7,6 @@ from django.conf import settings
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "course4_proj.settings")
 os.environ.setdefault("DJANGO_CONFIGURATION", "Dev")
 
-import configurations
 
 configurations.setup()
 

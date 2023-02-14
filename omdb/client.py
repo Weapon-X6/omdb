@@ -20,7 +20,9 @@ class OmdbMovie:
         exception if the key is not found."""
 
         if key not in self.data:
-            raise AttributeError(f"{key} is not in data, please make sure this is a detail response.")
+            raise AttributeError(
+                f"{key} is not in data, please make sure this is a detail response."
+            )
 
     @property
     def imdb_id(self):
@@ -89,7 +91,7 @@ class OmdbClient:
             resp_body = resp.json()
             logger.info(" resp >> %s", resp_body)
 
-            if resp_body["Response"] == 'False':
+            if resp_body["Response"] == "False":
                 break
 
             if total_results is None:
@@ -101,5 +103,5 @@ class OmdbClient:
 
             if seen_results >= total_results:
                 break
-            
+
             page += 1

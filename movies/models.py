@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
 class SearchTerm(models.Model):
     class Meta:
         ordering = ["id"]
@@ -12,7 +12,7 @@ class SearchTerm(models.Model):
 class Genre(models.Model):
     class Meta:
         ordering = ["name"]
-    
+
     name = models.TextField(unique=True)
 
 
@@ -30,4 +30,3 @@ class Movie(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.year} | {self.is_full_record}"
-    

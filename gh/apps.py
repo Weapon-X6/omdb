@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class GhConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'gh'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "gh"

@@ -13,12 +13,12 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("imdb_id", nargs=1)
-    
+
     def handle(self, *args, **options):
         try:
             movie = Movie.objects.get(imdb_id=options["imdb_id"][0])
         except Movie.DoesNotExist:
             logger.error("Movie with IMDB ID '%s' was not found", options["imdb_id"][0])
             return
-            
+
         fill_movie_details(movie)
